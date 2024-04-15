@@ -1,0 +1,5 @@
+rootProject.name = 'modular-hexagonal-example'
+include 'domain-module'
+include 'application-module'
+include 'infraestructure-module'
+
