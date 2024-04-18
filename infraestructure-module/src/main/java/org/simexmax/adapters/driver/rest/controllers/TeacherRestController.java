@@ -2,6 +2,7 @@ package org.simexmax.adapters.driver.rest.controllers;
 
 import org.simexmax.adapters.driver.rest.bodies.GradeRequestBody;
 import org.simexmax.dto.person.StudentDto;
+import org.simexmax.dto.person.TeacherDto;
 import org.simexmax.handlers.commands.TeacherHandlerCommand;
 import org.simexmax.handlers.queries.TeacherHandlerQuery;
 import org.springframework.http.HttpStatus;
@@ -31,19 +32,19 @@ public class TeacherRestController {
      */
     @GetMapping
     public ResponseEntity<?> getAllTeachers() {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Not yet implemented.");
+        return ResponseEntity.ok(teacherHandlerQuery.getAllTeachers());
 
     }
 
     /**
      * Request to create a new teacher.
      *
-     * @param student The request body containing the information of the teacher to be created.
+     * @param teacher The request body containing the information of the teacher to be created.
      * @return A ResponseEntity with the HTTP status and a message indicating the operation is not implemented.
      */
     @PostMapping
-    public ResponseEntity<?> createTeacher(@RequestBody StudentDto student) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Not yet implemented.");
+    public ResponseEntity<?> createTeacher(@RequestBody TeacherDto teacher) {
+        return ResponseEntity.ok(teacherHandlerCommand.createTeacher(teacher));
     }
 
     /**
@@ -54,7 +55,7 @@ public class TeacherRestController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> getTeacher(@PathVariable(name = "id") String codeOrIdentification) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Not yet implemented.");
+        return ResponseEntity.ok(teacherHandlerQuery.getTeacherByCodeOrIdentification(codeOrIdentification));
     }
 
     /**
@@ -91,7 +92,7 @@ public class TeacherRestController {
                                                                    @PathVariable(name = "period") int period,
                                                                    @RequestBody GradeRequestBody grade) {
         teacherHandlerCommand.registerStudentGradeInSubjectByPeriod(studentCode, subjectCode, period, grade.getGrade());
-        return ResponseEntity.ok(String.format("Calificación creada parr el estudiante con código %s en la materia con" +
+        return ResponseEntity.ok(String.format("Calificación creada para el estudiante con código %s en la materia con" +
                 " código %s en el periodo %s", studentCode, subjectCode, period));
     }
 
